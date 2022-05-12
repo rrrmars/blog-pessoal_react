@@ -1,96 +1,93 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Postagem from '../../../models/Postagem';
 import { busca } from '../../../services/Service'
 import { Box, Card, CardActions, CardContent, Button, Typography } from '@material-ui/core';
 import './ListaPostagem.css';
+import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { TokenState } from '../../../store/tokens/TokenReducers';
 import { toast } from 'react-toastify';
 
 function ListaPostagem() {
-    const [posts, setPosts] = useState<Postagem[]>([])
+    const[postagens, setPostagem] = useState<Postagem[]>([])
     let navigate = useNavigate();
     const token = useSelector<TokenState, TokenState["tokens"]>(
         (state) => state.tokens
     );
 
     useEffect(() => {
-        if (token == "") {
-            toast.error('Você precisa estar logado', {
+        if(token == ''){
+            toast.error('Você precisa estar logado!', {
                 position: "top-right",
                 autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: false,
                 draggable: false,
-                theme: "colored",
+                theme: 'colored',
                 progress: undefined,
             });
             navigate("/login")
-
         }
-    }, [token])
+    },[token])
 
-    async function getPost() {
-        await busca("/postagens", setPosts, {
-            headers: {
+    async function getPostagem(){
+        await busca("/postagens", setPostagem, {
+            headers:{
                 'Authorization': token
             }
         })
     }
 
     useEffect(() => {
-
-        getPost()
-
-    }, [posts.length])
-
+        getPostagem()
+    }, [postagens.length])
     return (
         <>
-            {
-                posts.map(post => (
-                    <Box m={2} >
-                        <Card variant="outlined">
-                            <CardContent>
-                                <Typography color="textSecondary" gutterBottom>
-                                    Postagens
-                                </Typography>
-                                <Typography variant="h5" component="h2">
-                                    {post.titulo}
-                                </Typography>
-                                <Typography variant="body2" component="p">
-                                    {post.texto}
-                                </Typography>
-                                <Typography variant="body2" component="p">
-                                    {post.tema?.descricao}
-                                </Typography>
-                            </CardContent>
-                            <CardActions>
-                                <Box display="flex" justifyContent="center" mb={1.5}>
+        {
+            postagens.map(postagens => (
+            <Box m={2} >
+                <Card variant="outlined">
+                    <CardContent>
+                        <Typography color="textSecondary" gutterBottom>
+                            Postagens
+                        </Typography>
+                        <Typography variant="h5" component="h2">
+                            {postagens.titulo}
+                        </Typography>
+                        <Typography variant="body2" component="p">
+                            {postagens.texto}
+                        </Typography>
+                        <Typography variant="body2" component="p">
+                            {postagens.tema?.descricao}
+                        </Typography>
+                    </CardContent>
+                    <CardActions>
+                        <Box display="flex" justifyContent="center" mb={1.5}>
 
-                                    <Link to={`/formularioPostagem/${post.id}`} className="text-decorator-none" >
-                                        <Box mx={1}>
-                                            <Button variant="contained" className="marginLeft" size='small' color="primary" >
-                                                atualizar
-                                            </Button>
-                                        </Box>
-                                    </Link>
-                                    <Link to={`/deletarPostagem/${post.id}`} className="text-decorator-none">
-                                        <Box mx={1}>
-                                            <Button variant="contained" size='small' color="secondary">
-                                                deletar
-                                            </Button>
-                                        </Box>
-                                    </Link>
+                            <Link to={`/formularioPostagem/${postagens.id}`} className="text-decorator-none" >
+                                <Box mx={1}>
+                                    <Button variant="contained" className="marginLeft" size='small' color="primary" >
+                                        atualizar
+                                    </Button>
                                 </Box>
-                            </CardActions>
-                        </Card>
-                    </Box>
-                ))
-            }
-        </>
-    )
+                            </Link>
+                            <Link to={`/deletarPostagem/${postagens.id}`} className="text-decorator-none">
+                                <Box mx={1}>
+                                    <Button variant="contained" size='small' color="secondary">
+                                        deletar
+                                    </Button>
+                                </Box>
+                            </Link>
+                        </Box>
+                    </CardActions>
+                </Card>
+            </Box>
+            ))
+        }
+        
+        </>)
 }
 
 export default ListaPostagem;
