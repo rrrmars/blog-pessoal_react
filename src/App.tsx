@@ -6,7 +6,6 @@ import Home from './paginas/home/Home';
 import './App.css';
 import Login from './paginas/login/Login';
 import CadastroUsuario from './paginas/cadastroUsuario/CadastroUsuario';
-
 import ListaPostagem from './components/postagens/listapostagem/ListaPostagem';
 import ListaTema from './components/temas/listaTema/ListaTema';
 import CadastroPost from './components/postagens/cadastroPost/CadastroPost';
