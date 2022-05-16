@@ -34,9 +34,9 @@ function Navbar() {
     var navbarComponent;
 
     if (token != "") {
-        navbarComponent = <AppBar position="static">
+        navbarComponent = <AppBar position="static" style={{ background: "#D6D4AF", boxShadow: 'none' }}>
             <Toolbar variant="dense">
-                <Box className='cursor'>
+                <Box className='cursor' display="flex" justifyContent="start">
                     <Typography variant="h5" color="inherit">
                         BlogPessoal
                     </Typography>

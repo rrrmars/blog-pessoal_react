@@ -1,5 +1,23 @@
+.container {
+    background-image: url(../../components/assets/img/home2.jpg);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+}
+
 .caixa {
-    background-color: #3F51B5;
+
+    width: 500px;
+    height: 550px;
+    background-color: transparent;
+    justify-items: center;
 }
 
 .titulo {
@@ -9,7 +27,7 @@
 
 .botao {
     border-color: white !important;
-    background-color: #3F51B5;
+    background-color: #f1e4eb;
     color: white !important;
 }
 

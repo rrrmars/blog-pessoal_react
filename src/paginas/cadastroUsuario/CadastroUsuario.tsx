@@ -2,7 +2,7 @@ import React, { useState, useEffect, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import User from '../../models/User';
 import { cadastroUsuario } from '../../services/Service';
-import { Grid, Box, Typography, Button, TextField } from '@material-ui/core';
+import { Grid, Box, Typography, Button, TextField, Paper } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import './CadastroUsuario.css';
 import { toast } from 'react-toastify';
@@ -51,19 +51,19 @@ function CadastroUsuario() {
     }
     async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault()
-        if(confirmarSenha == user.senha){
-        cadastroUsuario(`/usuarios/cadastrar`, user, setUserResult)
-        toast.success('Usuario cadastrado com sucesso', {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: false,
-            theme: "colored",
-            progress: undefined,
+        if (confirmarSenha == user.senha) {
+            cadastroUsuario(`/usuarios/cadastrar`, user, setUserResult)
+            toast.success('Usuario cadastrado com sucesso', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: false,
+                theme: "colored",
+                progress: undefined,
             });
-        }else{
+        } else {
             toast.error('Dados inconsistentes. Favor verificar as informações de cadastro.', {
                 position: "top-right",
                 autoClose: 2000,
@@ -73,37 +73,41 @@ function CadastroUsuario() {
                 draggable: false,
                 theme: "colored",
                 progress: undefined,
-                });
+            });
         }
     }
     return (
-        <Grid container direction='row' justifyContent='center' alignItems='center'>
-            <Grid item xs={6} className='imagem2'></Grid>
-            <Grid item xs={6} alignItems='center'>
-                <Box paddingX={10}>
-                    <form onSubmit={onSubmit}>
-                        <Typography variant='h3' gutterBottom color='textPrimary' component='h3' align='center' className='textos2'>Cadastrar</Typography>
-                        <TextField value={user.nome} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)} id='nome' label='nome' variant='outlined' name='nome' margin='normal' fullWidth />
-                        <TextField value={user.usuario} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}id='usuario' label='usuario' variant='outlined' name='usuario' margin='normal'fullWidth />
-                        <TextField value={user.senha} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}id='senha' label='senha' variant='outlined' name='senha' margin='normal' type='password' fullWidth />
-                        <TextField value={confirmarSenha} onChange={(e: ChangeEvent<HTMLInputElement>) => confirmarSenhaHandle(e)}id='confirmarSenha' label='confirmarSenha' variant='outlined' name='confirmarSenha' margin='normal' type='password' fullWidth />
-                        <Box marginTop={2} textAlign='center'>
-                            <Link to='/login' className='text-decorator-none'>
-                                <Button variant='contained' color='secondary' className='btnCancelar'>
-                                    Cancelar
-                                </Button>
-                            </Link>
-                            <Button type='submit' variant='contained' color='primary'>
-                                    Cadastrar
+        <Box className='container-cadastro'>
+            <Paper elevation={16} className='paperStyle-cadastro'>
+                <form onSubmit={onSubmit}>
+
+                    <Box className='box-cadastro'>
+                        <Typography variant='h5' align='center' className='loginText'>Cadastro</Typography>
+                        <TextField value={user.nome} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)} id='nome' label='Nome' variant='outlined' name='nome'
+                            margin='normal' fullWidth />
+                        <TextField value={user.usuario} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)} id='usario' label='Usuário' variant='outlined' name='usuario'
+                            margin='normal' fullWidth />
+                        <TextField value={user.senha} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)} id='senha' label='Senha' variant='outlined' name='senha' type='password'
+                            margin='normal' fullWidth />
+                        <TextField value={confirmarSenha} onChange={(e: ChangeEvent<HTMLInputElement>) => confirmarSenhaHandle(e)} id='confirmarsenha' label='Confirmar Senha' variant='outlined'
+                            type='password' name='confirmarsenha' margin='normal' fullWidth />
+                    </Box>
+                    <Box className='box-info'>
+
+                        <Box marginTop={3} textAlign='center'>
+                            <Button type='submit' className='button' variant="contained" fullWidth>
+                                Cadastrar
                             </Button>
                         </Box>
-                    </form>
+                    </Box>
+                </form>
+                <Box display='flex' justifyContent='end' marginTop={5}>
+                    <Link to='/login' className='text-decorator-none'>
+                        <Typography variant='subtitle1' gutterBottom align='center' className='loginText' >Login</Typography>
+                    </Link>
                 </Box>
-            </Grid>
-
-
-
-        </Grid>
+            </Paper>
+        </Box>
     );
 }
 

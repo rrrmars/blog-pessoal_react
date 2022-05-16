@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
-import { Box, Grid, Typography, TextField, Button } from '@material-ui/core';
+import { Box, Grid, Typography, TextField, Button, Paper } from '@material-ui/core';
 import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../../services/Service';
 import UserLogin from '../../models/UserLogin';
@@ -68,33 +68,31 @@ function Login() {
     }
 
     return (
-        <Grid container direction='row' justifyContent='center' alignItems='center'>
-            <Grid xs={6} alignItems='center'>
-                <Box paddingX={20}>
-                    <form onSubmit={logar}>
-                        <Typography variant='h3' gutterBottom color='textPrimary' component='h3' align='center' className='textos1'>Entrar</Typography>
+        <Box className='container-login'>
+            <Paper elevation={15} className='paperStyle-login'>
+                <form onSubmit={logar}>
+                    <Box className='box-login'>
+                        <Typography variant='h5' align='center' className='loginText'>
+                            Login
+                        </Typography>
                         <TextField value={userLogin.usuario} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)} id='usuario' label='Usuário' variant='outlined' name='usuario' margin='normal' fullWidth />
                         <TextField value={userLogin.senha} onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)} id='senha' label='Senha' variant='outlined' name='senha' margin='normal' type='password' fullWidth />
-                        <Box marginTop={2} textAlign='center'>
-                            <Button type='submit' variant='contained' className='textos1'>
-                                Logar
-                            </Button>
-                        </Box>
-                    </form>
-                    <Box display='flex' justifyContent='center' marginTop={2}>
-                        <Box marginRight={1}>
-                            <Typography variant='subtitle1' gutterBottom align='center' >Não tem uma conta?</Typography>
-                        </Box>
-                        <Link to='/cadastrousuario' className='text-decorator-none'>
-                            <Typography variant='subtitle1' gutterBottom align='center' className='textos1'>Cadastre-se</Typography>
-                        </Link>
                     </Box>
+                    <Box className='btn'>
+                        <Button type='submit' fullWidth variant="contained" className="button">
+                            Login
+                        </Button>
+                    </Box>
+                </form>
+                <Box>
+                    <Typography variant='subtitle1' gutterBottom align='center' className='font'>Não tem uma conta?
+                        <Link to='/cadastrousuario' className='login-link-cadastro'>
+                            Cadastre-se
+                        </Link>
+                    </Typography>
                 </Box>
-            </Grid>
-            <Grid xs={6} className='imagem'>
-
-            </Grid>
-        </Grid>
+            </Paper>
+        </Box>
     )
 }
 
